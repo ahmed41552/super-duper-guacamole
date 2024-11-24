@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توليد كيوار كود</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #qrcode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>توليد كيوار كود</h1>
+    <p>أدخل الرقم لتوليد كيوار كود:</p>
+    <input type="text" id="qrInput" placeholder="أدخل الرقم هنا">
+    <br><br>
+    <button onclick="generateQRCode()">توليد كيوار كود</button>
+
+    <div id="qrcode"></div>
+    <br>
+    <a id="downloadLink" href="#" download="qrcode.png">تحميل كيوار كود</a>
+
+    <script>
+        function generateQRCode() {
+            const input = document.getElementById("qrInput").value;
+            const qrCodeContainer = document.getElementById("qrcode");
+            qrCodeContainer.innerHTML = ""; // Clear previous QR Code
+            if (input) {
+                const qrcode = new QRCode(qrCodeContainer, {
+                    text: input,
+                    width: 128,
+                    height: 128,
+                });
+
+                // Create a link to download the QR Code
+                const downloadLink = document.getElementById("downloadLink");
+                setTimeout(function() {
+                    const qrImage = qrCodeContainer.querySelector("img");
+                    downloadLink.href = qrImage.src;
+                    downloadLink.style.display = "inline-block"; // Show the download link
+                }, 100);
+            }
+        }
+    </script>
+
+</body>
+</html>
